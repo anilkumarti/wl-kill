@@ -2,7 +2,6 @@ import 'dotenv/config';
 import express from 'express';
 import path from 'path';
 import cors from 'cors';
-import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from "@google/genai";
 
 const app = express();
@@ -17,13 +16,13 @@ app.get('/api/health', (req, res) => {
     status: 'ok', 
     timestamp: new Date().toISOString(),
     env: process.env.NODE_ENV,
-    hasApiKey: !!process.env.MY_WORKING_KEY
+    hasApiKey: !!process.env.GEMINI_API_KEY
   });
 });
 
 // --- Gemini SDK Initialization ---
 const getAIClient = () => {
-  const apiKey = process.env.MY_WORKING_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) return null;
   return new GoogleGenAI({
     apiKey,
@@ -94,8 +93,8 @@ app.post('/api/gemini', async (req, res) => {
     const prompt = typeof req.body.prompt === 'string' ? req.body.prompt.trim() : '';
     if (!prompt) return res.status(400).json({ error: 'Missing prompt' });
 
-    if (!process.env.MY_WORKING_KEY) {
-      return res.status(500).json({ error: 'MY_WORKING_KEY not configured. Please check Settings > Secrets in AI Studio.' });
+    if (!process.env.GEMINI_API_KEY) {
+      return res.status(500).json({ error: 'GEMINI_API_KEY not configured. Please check Settings > Secrets in AI Studio.' });
     }
 
     const aiClient = getAIClient();
@@ -149,6 +148,7 @@ app.post('/api/gemini', async (req, res) => {
 // --- Vite Middleware ---
 async function startServer() {
   if (process.env.NODE_ENV !== 'production') {
+    const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: 'spa',

@@ -8,7 +8,7 @@ const FavoriteMeals: React.FC = () => {
   const { favoriteMeals, removeFavoriteMeal } = useFavoriteMealsStore();
   const { addEntry } = useFoodStore();
 
-  const handleAddToLog = (meal: { name: string; calories: number; protein: number; carbs: number; fats: number }) => {
+  const handleAddToLog = (meal: { name: string; calories: number; protein: number; carbs: number; fat: number; quantity: number }) => {
     addEntry({ ...meal, mealType: 'breakfast' }); // default to breakfast
   };
 
@@ -26,7 +26,7 @@ const FavoriteMeals: React.FC = () => {
               </p>
               <div className="flex justify-between items-center">
                 <button
-                  onClick={() => handleAddToLog(meal)}
+                  onClick={() => handleAddToLog({ ...meal, quantity: 1 })}
                   className="px-4 py-2 text-white bg-purple-600 rounded-lg hover:bg-purple-700"
                 >
                   Add to Log

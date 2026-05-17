@@ -233,7 +233,7 @@ const FormField: React.FC<FormFieldProps> = ({ label, id, children, error }) => 
     <label htmlFor={id} className="block mb-2 text-sm font-medium">
       {label}
     </label>
-    {React.cloneElement(children, {
+    {React.cloneElement(children as React.ReactElement<{ className?: string; 'aria-invalid'?: string }>, {
       className: "w-full p-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none",
       'aria-invalid': error ? 'true' : 'false',
     })}

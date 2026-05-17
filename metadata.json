@@ -1,6 +1,6 @@
 {
   "name": "Fat Kill",
-  "description": "A comprehensive fitness tracking application to track calories, exercise, and progress.",
+  "description": "An AI-powered fitness tracking application to track calories, exercise, and progress using Gemini.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
