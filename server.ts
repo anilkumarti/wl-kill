@@ -112,11 +112,12 @@ app.post('/api/gemini', async (req, res) => {
 
     console.log('Gemini prompt received:', sanitized);
 
-    const response = await aiClient.getGenerativeModel({
-      model: "gemini-1.5-flash",
-    }).generateContent(finalPrompt);
+    const response = await aiClient.models.generateContent({
+      model: "gemini-3-flash-preview",
+      contents: finalPrompt,
+    });
 
-    const reply = response.response.text() || 'No response from AI.';
+    const reply = response.text || 'No response from AI.';
     res.json({ reply });
   } catch (error: unknown) {
     console.error('Gemini proxy error details:', error);
@@ -156,7 +157,7 @@ async function startServer() {
   } else {
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
-    app.get('(.*)', (req, res) => {
+    app.get('*all', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));
     });
   }
