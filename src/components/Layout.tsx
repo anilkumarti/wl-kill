@@ -23,30 +23,15 @@ const Layout: React.FC = () => {
                     <Link to="/dashboard" className="text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">
                       Dashboard
                     </Link>
-                    <Link to="/foods" className="text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">
-                      Foods
-                    </Link>
-                    <Link to="/exercises" className="text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">
-                      Exercises
-                    </Link>
-                    <Link to="/progress" className="text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">
-                      Progress
-                    </Link>
-                    <Link to="/bmi-calculator" className="text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">
-                      BMI Calculator
-                    </Link>
                     <Link to="/favorites" className="text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">
                       Favorite Meals
-                    </Link>
-                    <Link to="/exercise-timer" className="text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">
-                      Exercise Timer
                     </Link>
                   </>
                 )}
               </div>
             </div>
             <div className="hidden md:block">
-              {isAuthenticated ? (
+              {isAuthenticated && (
                 <div className="flex items-center">
                   <span className="text-gray-700 dark:text-gray-300 mr-4">Welcome, {user?.name}</span>
                   <button
@@ -56,15 +41,6 @@ const Layout: React.FC = () => {
                     Logout
                   </button>
                 </div>
-              ) : (
-                <>
-                  <Link to="/login" className="text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">
-                    Login
-                  </Link>
-                  <Link to="/signup" className="bg-purple-600 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-purple-700">
-                    Sign Up
-                  </Link>
-                </>
               )}
             </div>
           </div>
