@@ -16,13 +16,13 @@ app.get('/api/health', (req, res) => {
     status: 'ok', 
     timestamp: new Date().toISOString(),
     env: process.env.NODE_ENV,
-    hasApiKey: !!process.env.GEMINI_API_KEY
+    hasApiKey: !!process.env.MY_WORKING_KEY
   });
 });
 
 // --- Gemini SDK Initialization ---
 const getAIClient = () => {
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = process.env.MY_WORKING_KEY;
   if (!apiKey) return null;
   return new GoogleGenAI({
     apiKey,
@@ -93,8 +93,8 @@ app.post('/api/gemini', async (req, res) => {
     const prompt = typeof req.body.prompt === 'string' ? req.body.prompt.trim() : '';
     if (!prompt) return res.status(400).json({ error: 'Missing prompt' });
 
-    if (!process.env.GEMINI_API_KEY) {
-      return res.status(500).json({ error: 'GEMINI_API_KEY not configured. Please check Settings > Secrets in AI Studio.' });
+    if (!process.env.MY_WORKING_KEY) {
+      return res.status(500).json({ error: 'MY_WORKING_KEY not configured. Please check Settings > Secrets in AI Studio.' });
     }
 
     const aiClient = getAIClient();
